@@ -81,7 +81,7 @@
                                                 <th scope="row">1</th>
 
 
-                                                <td>{{$pedido->address->barrio.''. $pedido->address->direccion}}</td>
+                                                <td>X</td>
                                                 <td>{{$pedido->fecha}}</td>
                                                 <td>${{$pedido->subtotal}}</td>
                                                 <td>${{$pedido->total}}</td>
@@ -183,7 +183,7 @@
                                                 <td>{{$add->barrio}}</td>
                                                 <td>{{$add->telefono}}</td>
                                                 <td>{{$add->ciudad}}</td>
-                                                <td> <a  href="route('user.removeAddres')" class=" btn btn-danger">Borrar</button></a>
+                                                <td> <a  href="{{route('removeAddres',['id'=>$add->id])}}" class=" btn btn-danger">Borrar</button></a>
 
                                             </tr>
                                             @endforeach

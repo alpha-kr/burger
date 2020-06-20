@@ -54,8 +54,10 @@ class UserController extends Controller
             return back();
         }
     }
-    public function removeAddress()
+    public function removeAddress($id)
     {
-
+        $address=Address::find($id);
+        $address->delete();
+        return back();
     }
 }
