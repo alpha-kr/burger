@@ -68,6 +68,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
+                                                <th scope="col">Destino</th>
                                                 <th scope="col">Fecha</th>
                                                 <th scope="col">sub total</th>
                                                 <th scope="col">total</th>
@@ -78,6 +79,9 @@
                                             @foreach($pedidos as $pedido)
                                             <tr>
                                                 <th scope="row">1</th>
+
+
+                                                <td>{{$pedido->address->barrio.''. $pedido->address->direccion}}</td>
                                                 <td>{{$pedido->fecha}}</td>
                                                 <td>${{$pedido->subtotal}}</td>
                                                 <td>${{$pedido->total}}</td>
@@ -96,13 +100,13 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                             <ul>
-                                                                 @foreach($pedido->products as $pro)
-                                                                 <li>Producto: {{$pro->nombre}}</li>
-                                                                 <li>precio: ${{$pro->precio}}</li>
-                                                                 <li>cantidad: {{$pro->pivot->cantidad}}</li>
-                                                                 @endforeach
-                                                             </ul>
+                                                            <ul>
+                                                                @foreach($pedido->products as $pro)
+                                                                <li>Producto: {{$pro->nombre}}</li>
+                                                                <li>precio: ${{$pro->precio}}</li>
+                                                                <li>cantidad: {{$pro->pivot->cantidad}}</li>
+                                                                @endforeach
+                                                            </ul>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -121,36 +125,36 @@
                                 </div>
                                 <div style="display: none;" id="panel2">
 
-                                    <form method="post" action="{{route('user.update')}}" >
+                                    <form method="post" action="{{route('user.update')}}">
                                         @csrf
                                         <div class="form-row">
                                             <div class="form-group col-md-6  @error('name') is-invalid @enderror">
                                                 <label for="inputEmail4">Nombre</label>
-                                                <input type="text" class="form-control"  value="{{Auth::user()->name}}" id="inputEmail4" name="name" placeholder="Email">
+                                                <input type="text" class="form-control" value="{{Auth::user()->name}}" id="inputEmail4" name="name" placeholder="Email">
                                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                             </div>
                                             <div class="form-group col-md-6  @error('email') is-invalid @enderror">
                                                 <label for="inputPassword4">Correo</label>
-                                                <input type="email" class="form-control" value="{{Auth::user()->email}}" id="inputPassword4"name="email" placeholder="Password">
+                                                <input type="email" class="form-control" value="{{Auth::user()->email}}" id="inputPassword4" name="email" placeholder="Password">
                                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group  @error('password') is-invalid @enderror">
                                             <label for="inputAddress">Contraseña</label>
-                                            <input type="password" class="form-control" id="inputAddress" require  name="password" placeholder="contraseña">
+                                            <input type="password" class="form-control" id="inputAddress" require name="password" placeholder="contraseña">
                                             @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
 
 
@@ -160,43 +164,31 @@
                                 </div>
                                 <div style="display: none;" id="panel3">
 
-                                    <form>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">direccion</th>
+                                                <th scope="col">barrio</th>
+                                                <th scope="col">telefono</th>
+                                                <th scope="col">ciudad</th>
+                                                <th scope="col">accion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($address as $add)
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>{{$add->direccion}}</td>
+                                                <td>{{$add->barrio}}</td>
+                                                <td>{{$add->telefono}}</td>
+                                                <td>{{$add->ciudad}}</td>
+                                                <td> <a  href="route('user.removeAddres')" class=" btn btn-danger">Borrar</button></a>
 
-                                        <div class="form-group">
-                                            <label for="inputAddress">Address</label>
-                                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputAddress2">Address 2</label>
-                                            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="inputCity">City</label>
-                                                <input type="text" class="form-control" id="inputCity">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputState">State</label>
-                                                <select id="inputState" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option>...</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="inputZip">Zip</label>
-                                                <input type="text" class="form-control" id="inputZip">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                <label class="form-check-label" for="gridCheck">
-                                                    Check me out
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Sign in</button>
-                                    </form>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -248,47 +240,22 @@
             let id = Number(e.target.id.match(/\d+/));
             show(id);
         })
-
     </script>
     @if (Session::has('exito'))
- <script>
-    const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  onOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
-
-Toast.fire({
-  icon: 'success',
-  title: 'usuario actualizado'
-})
-</script>
-@endif
-@if ($errors->has('email') ||$errors->has('password') ||$errors->has('name') )
- <script>
-    const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  onOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
-
-Toast.fire({
-  icon: 'danger',
-  title: 'Error al actualizar'
-})
-$('invalid-feedback').css('display','block');
-</script>
-@endif
+    <script>
+        Toast.fire({
+            icon: 'success',
+            title: 'usuario actualizado'
+        })
+    </script>
+    @endif
+    @if ($errors->has('email') ||$errors->has('password') ||$errors->has('name') )
+    <script>
+        Toast.fire({
+            icon: 'danger',
+            title: 'Error al actualizar'
+        })
+        $('invalid-feedback').css('display', 'block');
+    </script>
+    @endif
 </body>

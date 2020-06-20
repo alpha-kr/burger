@@ -8,7 +8,7 @@ class pedido extends Model
 {
     protected $fillable=['fecha',
     'domicilio',
-    'id_domicilio',
+    'id_direccion',
     'total',
     'subtotal',
     'descuento',
@@ -17,5 +17,9 @@ class pedido extends Model
     public function products()
     {
         return $this->belongsToMany('App\producto','detalle_pedido','id_pedido','id_producto')->withPivot('cantidad');
+    }
+    public function address()
+    {
+        return $this-> hasOne('App\Address','id');
     }
 }

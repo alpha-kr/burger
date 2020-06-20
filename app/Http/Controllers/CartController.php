@@ -46,7 +46,7 @@ class CartController extends Controller
   {
     $now = new \DateTime();
     $timesmap=date_timestamp_get($now);
-
+    $idAddres=intval( $request->input('address'));
 
       if (Cart::count()>0) {
            Cart::store( strval($timesmap));
@@ -55,13 +55,14 @@ class CartController extends Controller
 
           $pedido= new pedido(['fecha'=>$now->format('Y-m-d H:i:s'),
                         'domicilio'=>2,
-                        'id_direccion'=>null,
+                        'id_direccion'=>  $idAddres,
                         'total'=>Cart::total(),
                         'subtotal'=>Cart::subtotal(),
                         'descuento'=>0,
                         'cart'=>$timesmap,
 
                         ]);
+
             $pedido->save();
             foreach (Cart::content() as $item) {
                 $pedido->products()->attach($item->id,['cantidad'=>$item->qty]);

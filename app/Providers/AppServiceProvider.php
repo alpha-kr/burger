@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 use App\categoria;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,6 +33,15 @@ class AppServiceProvider extends ServiceProvider
             $categorias=categoria::all();
             $view->with('categorias',$categorias)
                     ->with('item',Cart::content()->count());
+        });
+        View::composer(['burger.cart', 'burger.userdata' ], function ($view) {
+            if (Auth::check()) {
+                $direcciones=User::find(Auth::id())->address;
+
+                $view->with('address',$direcciones);
+            }
+
+
         });
     }
 }

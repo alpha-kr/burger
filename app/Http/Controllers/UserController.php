@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\pedido;
 use App\User;
-use App\Adress;
+use App\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -14,6 +14,7 @@ class UserController extends Controller
     public function index()
     {
           $user=User::find(Auth::id());
+
         return view('burger.userdata')->with('pedidos',$user->pedidos);
     }
     public function update(Request $request)
@@ -36,6 +37,21 @@ class UserController extends Controller
     }
     public function addAddress(Request $request)
     {
+        $val=Validator::make($request->input(),[
+            'direccion'=>'required',
+            'barrio'=>'required',
+            'telefono'=>'required',
+            'celular'=>'required'
+        ]);
 
+        if ($val->fails()) {
+            return  Redirect::back() ->withErrors($val);
+        }else{
+            $user=User::find(Auth::id());
+            $address= new Address($request->input());
+            $user->address()->save($address);
+            $request->session()->flash('exito2', "hola");
+            return back();
+        }
     }
 }
