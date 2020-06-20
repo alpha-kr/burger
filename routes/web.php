@@ -27,5 +27,6 @@ Route::post('/cart/end','CartController@end')->name('cart.end')->middleware('ver
 Route::get('/user','UserController@index')->name('user')->middleware('auth');
 Route::post('/user/update','UserController@update')->name('user.update')->middleware('auth');
 Route::post('/user/addAddress','UserController@addAddress')->name('addAddress')->middleware('auth');
+Route::post('/user/removeAddres','UserController@removeAddress')->name('removeAddress')->middleware('auth');
 
 
