@@ -121,20 +121,36 @@
                                 </div>
                                 <div style="display: none;" id="panel2">
 
-                                    <form>
+                                    <form method="post" action="{{route('user.update')}}" >
+                                        @csrf
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-6  @error('name') is-invalid @enderror">
                                                 <label for="inputEmail4">Nombre</label>
-                                                <input type="text" class="form-control" id="inputEmail4" placeholder="Email">
+                                                <input type="text" class="form-control"  value="{{Auth::user()->name}}" id="inputEmail4" name="name" placeholder="Email">
+                                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
                                             </div>
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-6  @error('email') is-invalid @enderror">
                                                 <label for="inputPassword4">Correo</label>
-                                                <input type="email" class="form-control" id="inputPassword4" placeholder="Password">
+                                                <input type="email" class="form-control" value="{{Auth::user()->email}}" id="inputPassword4"name="email" placeholder="Password">
+                                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group  @error('password') is-invalid @enderror">
                                             <label for="inputAddress">Contraseña</label>
-                                            <input type="email" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                                            <input type="password" class="form-control" id="inputAddress" require  name="password" placeholder="contraseña">
+                                            @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
                                         </div>
 
 
@@ -203,26 +219,7 @@
             $("input[name='action']").val(e.target.textContent)
         })
     </script>
-    @if (Session::has('exito'))
-    <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            onOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
 
-        Toast.fire({
-            icon: 'success',
-            title: 'Su producto llegara pronto'
-        })
-    </script>
-    @endif
     <script>
         function show(id) {
             switch (id) {
@@ -251,5 +248,47 @@
             let id = Number(e.target.id.match(/\d+/));
             show(id);
         })
+
     </script>
+    @if (Session::has('exito'))
+ <script>
+    const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'usuario actualizado'
+})
+</script>
+@endif
+@if ($errors->has('email') ||$errors->has('password') ||$errors->has('name') )
+ <script>
+    const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'danger',
+  title: 'Error al actualizar'
+})
+$('invalid-feedback').css('display','block');
+</script>
+@endif
 </body>

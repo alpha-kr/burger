@@ -24,6 +24,8 @@ Route::get('/cart','CartController@show')->name('cart');
 Route::post('/cart/plus','CartController@action')->name('cart.plus');
 Route::post('/cart/remove','CartController@remove')->name('cart.remove');
 Route::post('/cart/end','CartController@end')->name('cart.end')->middleware('verified');
-Route::get('/user','UserController@index')->name('user')->middleware('auth');;
+Route::get('/user','UserController@index')->name('user')->middleware('auth');
+Route::post('/user/update','UserController@update')->name('user.update')->middleware('auth');
+Route::post('/user/addAddress','UserController@addAddress')->name('addAddress')->middleware('auth');
 
 

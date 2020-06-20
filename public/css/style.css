@@ -6383,6 +6383,20 @@ input::-webkit-inner-spin-button {
 .count:disabled{
     background-color:white;
 }
+.addres-card{
 
+
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: auto;
+}
+.addres-card:hover{
+    text-decoration: none;
+    box-shadow: -2px 3px 18px rgba(0,0,0,.3);
+    -webkit-transform: scale(1.025);
+    transform: scale(1.025);
+}
 
 /*# sourceMappingURL=style.css.map */

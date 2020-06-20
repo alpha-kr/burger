@@ -19,6 +19,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasManyThrough('App\pedido','App\shoppingCart','id_user','cart','id','identifier');
     }
+    public function address()
+    {
+        return $this->hasMany('App\Address','id_user');
+    }
     protected $fillable = [
         'name', 'email', 'password',
     ];

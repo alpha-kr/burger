@@ -11,10 +11,18 @@
                     <div class="card" style="border: none;">
                         <div class="best_burgers_area" style="padding-top: 0;">
                             <div class="card-header">
-                                <div class="section_title text-center">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                    <div class="section_title text-center">
                                     <span>Detalle</span>
                                     <h3>Compra</h3>
+
                                 </div>
+                                    </div>
+                                    @include('burger.adress')
+                                </div>
+
+
                             </div>
                             <div class="card-body">
                                 @foreach($cart as $item)

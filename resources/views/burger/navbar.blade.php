@@ -27,7 +27,7 @@
 
                                 <div class="book_btn d-none d-xl-block">
                                     @auth
-                                    <a  href="{{route('home')}}"> Hola,{{auth()->user()->name}}</a>
+                                    <a  href="{{route('user')}}"> Hola,{{auth()->user()->name}}</a>
                                     @endauth
                                     @guest
                                     <a  href="{{route('login')}}">Iniciar sesion</a>
