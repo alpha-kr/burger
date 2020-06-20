@@ -81,7 +81,7 @@
                                                 <th scope="row">1</th>
 
 
-                                                <td>X</td>
+                                                <td> {{ $pedido->address->barrio.",".$pedido->address->direccion}}</td>
                                                 <td>{{$pedido->fecha}}</td>
                                                 <td>${{$pedido->subtotal}}</td>
                                                 <td>${{$pedido->total}}</td>

@@ -20,6 +20,6 @@ class pedido extends Model
     }
     public function address()
     {
-        return $this-> hasOne('App\Address','id');
+        return $this-> belongsTo('App\Address','id_direccion');
     }
 }
